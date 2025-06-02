@@ -175,12 +175,19 @@ class arrayFunctions {
     return -1;
   }
 
-  flat(nestedArr, count) {
-    let array = [];
-    while (count > 0) {
-      reduceArr()
-      count--
-    }
+  flat(nestedArr) {
+    let flat = [];
+    const handleFlat = function (arr) {
+      for (let i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i])) {
+          handleFlat(arr[i]);
+        } else {
+          flat.push(arr[i]);
+        }
+      }
+    };
+    handleFlat(nestedArr);
+    return flat;
   }
   join(concat = ",") {
     let string = this.array[0];
@@ -200,7 +207,9 @@ class arrayFunctions {
     return false;
   }
   sort() {}
-  toLocaleString() {}
+  toLocaleString() {
+    
+  }
 }
 
 const myFunc = new arrayFunctions();
@@ -223,4 +232,5 @@ myFunc.push("Oreoluwa");
 // console.log(myFunc.every((value) => value.length > 4));
 // console.log(myFunc.findLastIndex((value) => value.length < 5));
 // console.log(myFunc.join("-"));
-console.log(myFunc.some((value) => value.length === 4));
+// console.log(myFunc.some((value) => value.length === 4));
+console.log(myFunc.flat([1, 2, 3, [4, 5, [6, 7, [8, 9, [10]]]]]));
