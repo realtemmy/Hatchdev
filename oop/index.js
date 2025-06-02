@@ -1,5 +1,5 @@
 // Write 10 array functions in javascript
-// length, push, pop, shift, unshift,indexOf, join, includes, reverse, splice, filter, foreach, map, slice
+// length, push, pop, shift, unshift,indexOf, join, includes, reverse, splice, filter, foreach, map, slice,fill,every,some
 
 class arrayFunctions {
   constructor(value) {
@@ -39,6 +39,10 @@ class arrayFunctions {
     this.array = newArr;
     return first;
   }
+  unShift(...values) {
+    this.array = [...values, ...this.array];
+    return this.array.length;
+  }
   indexOf(value) {
     for (let i = 0; i < this.array.length; i++) {
       if (this.array[i] === value) {
@@ -57,7 +61,7 @@ class arrayFunctions {
   }
   reverse() {
     if (this.array.length === 0) return this.array;
-    
+
     let left = 0,
       right = this.array.length - 1;
     while (left < right) {
@@ -110,9 +114,93 @@ class arrayFunctions {
 
     return [];
   }
-  slice(start, end = this.array.length) {
+  slice(start = 0, end = this.array.length) {
+    const newArr = [];
+    let index = 0;
+
     if (start < 0) start += this.array.length;
+    if (end < 0) end += this.array.length;
+
+    while (start < end) {
+      newArr[index] = this.array[start];
+
+      index++;
+      start++;
+    }
+    return newArr;
   }
+  splice(start = 0, deleteCount, ...replacements) {
+    // In place
+    if (start < 0) start += this.array.length;
+
+    const before = this.slice(0, start);
+    const after = this.slice(start + deleteCount);
+    this.array = [...before, ...replacements, ...after];
+
+    return this.array;
+  }
+  with(index, value) {
+    if (index > this.array.length) {
+      throw new Error("Something exceeded sha");
+    }
+    const newArr = [...this.array];
+    newArr[index] = value;
+    return newArr;
+  }
+  fill(value, start = 0, end = this.array.length) {
+    if (start < 0) start += this.array.length;
+    if (end < 0) end += this.array.length;
+
+    while (start < end) {
+      this.array[start] = value;
+      start++;
+    }
+
+    return this.array;
+  }
+  every(cb) {
+    for (let i = 0; i < this.array.length; i++) {
+      if (!cb(this.array[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+  findLastIndex(cb) {
+    for (let i = this.array.length - 1; i >= 0; i--) {
+      if (cb(this.array[i])) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  flat(nestedArr, count) {
+    let array = [];
+    while (count > 0) {
+      reduceArr()
+      count--
+    }
+  }
+  join(concat = ",") {
+    let string = this.array[0];
+    for (let i = 1; i < this.array.length; i++) {
+      string = string + concat + this.array[i];
+    }
+
+    return string;
+  }
+  some(cb) {
+    // Decided to try reverse loop so I won't forget the syntax
+    for (let i = this.array.length - 1; i >= 0; i--) {
+      if (cb(this.array[i])) {
+        return true;
+      }
+    }
+    return false;
+  }
+  sort() {}
+  toLocaleString() {}
 }
 
 const myFunc = new arrayFunctions();
@@ -120,10 +208,19 @@ myFunc.push("Temi");
 myFunc.push("Tobi");
 myFunc.push("Adebisi");
 myFunc.push("Oreoluwa");
+// console.log(myFunc.unShift("Olaotan", "Gabriel"))
 // console.log(myFunc.indexOf("Temi"))
 // console.log(myFunc.includes("Temi"));
-console.log(myFunc.reverse())
+// console.log(myFunc.reverse());
 // console.log(myFunc.forEach());
 // console.log(myFunc.map((element) => element + "s"));
 // console.log(myFunc.filter((word) => word.length > 3));
 // console.log(myFunc.find((word) => word.length >= 7));
+// console.log(myFunc.slice(2, -1));
+// console.log(myFunc.splice(1, 0, "Ore", "Jackson", "David", "Deolu"));
+// console.log(myFunc.with(0, "Temiloluwa"));
+// console.log(myFunc.fill("Temiloluwa"))
+// console.log(myFunc.every((value) => value.length > 4));
+// console.log(myFunc.findLastIndex((value) => value.length < 5));
+// console.log(myFunc.join("-"));
+console.log(myFunc.some((value) => value.length === 4));
