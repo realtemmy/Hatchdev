@@ -133,5 +133,5 @@ map.set("acb", 4);
 
 // console.log(map.array);
 
-map.clear();
+map.clear(git );
 console.log(map);
