@@ -1,6 +1,6 @@
-class Node {
+class LNode {
   value: number;
-  next: Node | null;
+  next: LNode | null;
   constructor(value: number) {
     this.value = value;
     this.next = null;
@@ -8,17 +8,18 @@ class Node {
 }
 
 class LinkedList {
-  head: Node | null;
+  head: LNode | null;
 
   constructor() {
     this.head = null;
   }
 
   add(value: number) {
-    const newNode = new Node(value);
+    const newNode = new LNode(value);
     let currentNode = this.head;
     if (!currentNode) {
-      return currentNode = newNode;
+      this.head = newNode;
+      return;
     }
     while (currentNode && currentNode.next) {
       currentNode = currentNode.next;
