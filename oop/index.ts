@@ -29,7 +29,7 @@ class arrFunc {
 
     return last;
   }
-  shift(): string  {
+  shift(): string {
     const first = this.array[0];
     const newArr = [];
     for (let i = 1; i < this.array.length; i++) {
@@ -69,17 +69,17 @@ class arrFunc {
 
     return this.value;
   }
-  forEach(cb) {
+  forEach(cb: any) {
     for (let i = 0; i < this.array.length; i++) {
       cb(this.array[i]);
     }
 
-    function cb(element) {
-      console.log(element);
-    }
+    // function cb(element) {
+    //   console.log(element);
+    // }
   }
 
-  map(cb) {
+  map(cb: any) {
     const newArr = [];
     for (let i = 0; i < this.array.length; i++) {
       const newEL = cb(this.array[i]);
@@ -88,10 +88,10 @@ class arrFunc {
 
     return newArr;
   }
-  filter(cb) {
-    const newArr = [];
+  filter(cb: (value: string, index: number, array: string[]) => boolean): string[] {
+    const newArr: string[] = [];
     for (let i = 0; i < this.array.length; i++) {
-      if (cb(this.array[i])) {
+      if (cb(this.array[i], i, this.array)) {
         newArr.push(this.array[i]);
       }
     }

@@ -34,6 +34,7 @@ class Playlist {
     }
   }
 
+
   toggleRepeat(): void {
     this.repeat = !this.repeat;
     console.log(`Repeat is now ${this.repeat ? "ON" : "OFF"}`);
